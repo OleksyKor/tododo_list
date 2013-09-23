@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+
+.animated{
+	-webkit-animation-fill-mode:both;
+	-moz-animation-fill-mode:both;
+	-ms-animation-fill-mode:both;
+	-o-animation-fill-mode:both;
+	animation-fill-mode:both;
+	-webkit-animation-duration:1s;
+	-moz-animation-duration:1s;
+	-ms-animation-duration:1s;
+	-o-animation-duration:1s;
+	animation-duration:1s;
+
+	-webkit-animation-name: fadeInDown;
+	-moz-animation-name: fadeInDown;
+	-o-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+}
+.animated.hinge{
+	-webkit-animation-duration:1s;
+	-moz-animation-duration:1s;
+	-ms-animation-duration:1s;
+	-o-animation-duration:1s;
+	animation-duration:1s;
+	}
+@-webkit-keyframes fadeInDown {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+
+@-moz-keyframes fadeInDown {
+	0% {
+		opacity: 0;
+		-moz-transform: translateY(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		-moz-transform: translateY(0);
+	}
+}
+
+@-o-keyframes fadeInDown {
+	0% {
+		opacity: 0;
+		-o-transform: translateY(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes fadeInDown {
+	0% {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fadeInDown {
+	-webkit-animation-name: fadeInDown;
+	-moz-animation-name: fadeInDown;
+	-o-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+}
+
+
+
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+
+li {
+	list-style: square;
+	text-align: left;
+	width: 620px;
+	color: #555;
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	
+}
+
+#list .descr {
+	list-style-type: none;
+	font-size: 16px;
+	font-style: italic;
+	color: #999;
+	padding-bottom: 0px;
+	margin-top: -12px;
+}
+li:hover {
+	background-color:#F6F6F6;
+	cursor:pointer;
+}
+
+#list {
+	font-size: 24px;
+	line-height: 32px
+}
+
+#list .checked {
+	color: #0C0;
+	list-style-image: url(check.png);
+}
+#list .checked::after{
+	content: ' done';
+	font-style: italic;
+	font-size: 16px;
+	font-variant: small-caps;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+#list .done {
+	color: #09F;
+	text-decoration: line-through;
+}
+#tododo-frame {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 24px;
+	text-align: center;
+	margin-top: 100px;
+	width: 962px;
+	margin: 0 auto;
+}
+#item {
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:24px;
+	width:566px;
+	padding: 3px 7px;
+	border-radius: 5px;
+	
+}
+
+#btn {
+	width: 74px;
+	font-size: 26px;
+	line-height:36px;
+}
+h1 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #999;
+	text-transform: capitalize;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="tododo-frame">
+<h1>Tododo list</h1>
+<form>
+
+<input type="text" name="item" id="item" placeholder="Trololo?" autofocus="autofocus" required="required" onclick="addNote()"/>
+<input type="submit" value="+" id="btn"/>
+</form>  
+
+<ul id="list">
+<li class="checked"></li>
+</li>
+<li class="done"></li>
+</ul>
+</div> 
+
+<script>
+(function () {
+	var item = document.querySelector('#item'),
+	    form = document.querySelector('form'),
+		list = document.querySelector('#list');
+		
+		retrieve();
+		
+		form.addEventListener('submit', function (e) {
+			if (item.value === "Trololo" || item.value === "trololo" || item.value === "Трололо" || item.value === "трололо") {makeThemSuffer()} else {
+			list.innerHTML += '<li>' + item.value + '</li>';
+			store();
+			}
+			if (document.querySelector('li:only-child')) {
+				document.querySelector('li:last-child').className ='animated';
+			} else {
+			document.querySelector('li:nth-last-child(2)').className ='li';
+			document.querySelector('li:last-child').className ='animated';
+			}
+			item.value = '';
+			
+			e.preventDefault();
+		}, false);
+		
+		list.addEventListener('click', function (e) {
+			var t = e.target;
+			if (t.classList.contains('done') && t.classList.contains('checked')) {
+				t.parentNode.removeChild(t);
+			} else {
+				if (t.classList.contains('checked')) {
+					t.classList.add('done');	
+				} else {
+					t.classList.add('checked');	
+				}
+			}
+			store();
+			e.preventDefault();
+		}, false);
+	
+	function makeThemSuffer() {
+			list.innerHTML += '<li>' + 'Пиздец неизбежен...' + '</li>';
+	}
+	
+	function store() {
+		window.localStorage.myitems = list.innerHTML;
+	};
+	
+	function retrieve() {
+		list.innerHTML = window.localStorage.myitems;	
+	};
+	
+
+	
+	
+	
+	})();
+</script>	
+</body>
+</html>
