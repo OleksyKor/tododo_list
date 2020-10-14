@@ -1,0 +1,11 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "kid":"210930132554Z0",
+      "use": "sig",
+      "n": "0PSDUK-REVCA-857584be-267f-446d-9b89-ccef91a15aa00",
+      "e": "AQAB"
+    }
+  ]
+}
